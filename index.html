@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Observation Sheet — UA Card Sorting</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: #f4f3f0;
+    color: #1a1a1a;
+    font-size: 14px;
+}
+
+.screen-header {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+.screen-header h1 { font-size: 17px; font-weight: 700; margin: 0; }
+.screen-header p { font-size: 12px; color: #999; margin: 4px 0 0; }
+.print-btn {
+    background: #52b96d;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+}
+.print-btn:hover { background: #3d9b57; }
+.instructions {
+    padding: 14px 40px;
+    font-size: 12px;
+    color: #888;
+    border-bottom: 1px solid #e0ddd8;
+}
+
+.sheet-wrapper { padding: 30px 40px; }
+
+.sheet {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 32px 36px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.sheet-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+}
+.sheet-subtitle {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+.divider { height: 1.5px; background: #1a1a1a; margin-bottom: 18px; }
+.divider.light { height: 1px; background: #e8e5e0; margin: 14px 0; }
+
+.meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.meta-field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 6px;
+}
+.meta-field .field-line {
+    border: none;
+    border-bottom: 1.5px solid #ccc;
+    height: 28px;
+    width: 100%;
+    display: block;
+}
+
+.section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 10px;
+    margin-top: 4px;
+}
+
+/* Group blocks — name + note space only, no card listing */
+.groups-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.group-block {
+    border: 1px solid #e0ddd8;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.group-header {
+    background: #f7f5f1;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.group-num {
+    font-size: 9px;
+    font-weight: 700;
+    color: #bbb;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-width: 2.5em;
+    flex-shrink: 0;
+}
+.group-name-line {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    flex: 1;
+    height: 20px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    padding: 0 4px;
+}
+.group-notes {
+    padding: 6px 10px 8px;
+    min-height: 36px;
+}
+.group-note-line {
+    border: none;
+    border-bottom: 1px dashed #e8e5e0;
+    width: 100%;
+    display: block;
+    height: 17px;
+    margin-bottom: 3px;
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+}
+
+/* Quotes / notable moments */
+.quotes-block {
+    border: 1px solid #e0ddd8;
+    border-radius: 4px;
+    padding: 8px 10px 10px;
+    margin-bottom: 12px;
+}
+.write-line {
+    border: none;
+    border-bottom: 1px dashed #e0ddd8;
+    width: 100%;
+    height: 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    background: transparent;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Timing guide */
+.timing-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid #e8e5e0;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.timing-cell {
+    flex: 1;
+    text-align: center;
+    padding: 5px 4px;
+    border-right: 1px solid #e8e5e0;
+    font-size: 10px;
+}
+.timing-cell:last-child { border-right: none; }
+.timing-label { color: #bbb; font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; }
+.timing-value { font-weight: 700; font-size: 11px; color: #444; }
+
+/* Key reminders */
+.reminders {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.reminder-do, .reminder-dont {
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-size: 11px;
+}
+.reminder-do { background: rgba(82,185,109,0.08); border-left: 2px solid #52b96d; }
+.reminder-dont { background: rgba(223,85,85,0.07); border-left: 2px solid #df5555; }
+.reminder-do strong { color: #3d9b57; }
+.reminder-dont strong { color: #c44444; }
+.reminder-do ul, .reminder-dont ul { margin: 4px 0 0 12px; padding: 0; }
+.reminder-do li, .reminder-dont li { margin-bottom: 2px; color: #444; }
+
+@media print {
+    @page { size: A4 portrait; margin: 12mm 14mm; }
+    body { background: #fff; font-size: 11px; }
+    .screen-header, .instructions { display: none; }
+    .sheet-wrapper { padding: 0; }
+    .sheet { border: none; padding: 0; max-width: 100%; }
+    .sheet-title { font-size: 16px; }
+    .meta-row { gap: 12px; }
+    .groups-grid { gap: 7px; }
+    input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="screen-header">
+    <div>
+        <h1>Observation Sheet — UA Card Sorting</h1>
+        <p>Print one per participant. Fill in by hand. Card layout will be photographed — no need to list cards.</p>
+    </div>
+    <button class="print-btn" onclick="window.print()">Print sheet</button>
+</div>
+<div class="instructions">Print on A4 portrait. One sheet per participant. Photo the final card layout — use this sheet for group names and observations only.</div>
+
+<div class="sheet-wrapper">
+<div class="sheet">
+
+    <div class="sheet-title">UA Card Sorting — Observation Sheet</div>
+    <div class="sheet-subtitle">UA CRO Project / Sparro Internal / 55 cards</div>
+    <div class="divider"></div>
+
+    <!-- Groups: name + notes only -->
+    <div class="section-title">Groups created — name + observations (photo captures the cards)</div>
+    <div class="groups-grid">
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 1</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 2</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 3</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 4</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 5</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+        <div class="group-block">
+            <div class="group-header">
+                <span class="group-num">Group 6+</span>
+                <input type="text" class="group-name-line" placeholder="Participant's group name">
+            </div>
+            <div class="group-notes">
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+                <div class="group-note-line"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="divider light"></div>
+
+    <!-- Quotes / notable moments -->
+    <div class="section-title">Notable quotes, hesitations, surprises</div>
+    <div class="quotes-block">
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+    </div>
+
+    <div class="divider light"></div>
+
+    <!-- Timing guide -->
+    <div class="section-title">Session timing guide</div>
+    <div class="timing-row">
+        <div class="timing-cell"><div class="timing-label">Welcome</div><div class="timing-value">2 min</div></div>
+        <div class="timing-cell"><div class="timing-label">Instructions</div><div class="timing-value">2 min</div></div>
+        <div class="timing-cell"><div class="timing-label">Sorting</div><div class="timing-value">20–30 min</div></div>
+        <div class="timing-cell"><div class="timing-label">Debrief</div><div class="timing-value">5 min</div></div>
+        <div class="timing-cell"><div class="timing-label">Total</div><div class="timing-value">~30 min</div></div>
+    </div>
+
+
+</div>
+</div>
+
+</body>
+</html>
